@@ -1,5 +1,6 @@
 import React from 'react';
 import '../../src/App.css';
+import { Link } from 'react-router-dom';
 
 export default class PokeCard extends React.Component {
 
@@ -8,7 +9,8 @@ export default class PokeCard extends React.Component {
     this.state = {
       name: '',
       imageUrl: '',
-      pokemonIndex: ''
+      pokemonIndex: '',
+      imageLoading: true
     };
   }
   componentDidMount() {
@@ -23,13 +25,19 @@ export default class PokeCard extends React.Component {
   render() {
     return (
       <div className='col-md-3 col-sm-6 mb-5'> 
+        <Link to={`/pokemon/${this.state.pokemonIndex}`}>
           <div className='card'>
-            <h5>{this.state.pokemonIndex} </h5>
-            <img className="pokePic" src={this.state.imageUrl} alt="new" />
+            <h5> {this.state.pokemonIndex} </h5>
+            <img className="pokePic" 
+            src={this.state.imageUrl} 
+            onLoad={() => this.setState({imageLoading: false})}
+            alt="new" 
+            />
             <div className='card-header'>
-              <h1> {this.state.name} </h1>
+              <h3> {this.state.name} </h3>
             </div>
           </div>
+        </Link>
       </div>
       )
     } 
