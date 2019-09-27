@@ -25,7 +25,7 @@ export default class PokeCard extends React.Component {
   render() {
     return (
       <div className='col-md-3 col-sm-6 mb-5'> 
-        <Link to={`/pokemon/${this.state.pokemonIndex}`}>
+        
           <div className='card'>
             <h5> {this.state.pokemonIndex} </h5>
             <img className="pokePic" 
@@ -34,10 +34,12 @@ export default class PokeCard extends React.Component {
             alt="new" 
             />
             <div className='card-header'>
+            <Link to={`/pokemon/${this.state.pokemonIndex}`}>
               <h3> {this.state.name} </h3>
+            </Link>
             </div>
           </div>
-        </Link>
+        
       </div>
       )
     } 
