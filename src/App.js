@@ -11,8 +11,8 @@ export default class App extends React.Component {
   constructor (props) {
     super(props);
     this.state = {
-      pokemon : [],
-      value: 0
+      // pokemon : [],
+      // value: 0
   };
 }
 

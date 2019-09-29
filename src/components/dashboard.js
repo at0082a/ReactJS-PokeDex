@@ -7,7 +7,7 @@ export default class Dashboard extends React.Component {
     super(props);
     this.state = {
       pokemon : [],
-      value: 0
+      value: 20
   };
   this.handleClick = this.handleClick.bind(this);
   this.getData = this.getData.bind(this);
@@ -18,7 +18,7 @@ export default class Dashboard extends React.Component {
   }
   
   getData () {  
-    fetch("https://pokeapi.co/api/v2/pokemon")
+    fetch("https://pokeapi.co/api/v2/pokemon/?limit=20&offset=0")
         .then(response => response.json())
         .then(pokemon => {
           this.setState({
@@ -29,14 +29,7 @@ export default class Dashboard extends React.Component {
 
   handleClick (event) {
     let value = this.state.value;
-
-    if (event.target.id === "increment" && value === 0 ) {
-      this.setState({ value: value + 20 });
-    } else if (event.target.id === "decrement" && value >= 20) {
-      this.setState({ value: value - 20 });
-    } else if (event.target.id === "increment" && value >= 20) {
-      this.setState({ value: value + 20 });
-    }
+    console.log(value);
 
     fetch(`https://pokeapi.co/api/v2/pokemon/?limit=20&offset=${value}`)
     .then(response => response.json())
@@ -46,6 +39,14 @@ export default class Dashboard extends React.Component {
         pokemon : [...pokemon.results]
       });
     });
+    
+    if (event.target.id === "increment" && value >= 0 ) {
+      this.setState((value) => ({
+        value: value.value + 20}));
+    } else if (event.target.id === "decrement" && value >= 20) {
+      this.setState((value) => ({
+        value: value.value - 20}));
+    }
   }
 
   render () {
