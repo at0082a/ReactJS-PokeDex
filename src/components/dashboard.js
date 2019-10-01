@@ -7,7 +7,7 @@ export default class Dashboard extends React.Component {
     super(props);
     this.state = {
       pokemon : [],
-      value: 20
+      value: 0
   };
   this.handleClick = this.handleClick.bind(this);
   this.getData = this.getData.bind(this);
@@ -23,7 +23,7 @@ export default class Dashboard extends React.Component {
         .then(pokemon => {
           this.setState({
             pokemon : [...pokemon.results]
-          });
+        });
     });
   }
 
@@ -38,14 +38,14 @@ export default class Dashboard extends React.Component {
       this.setState({
         pokemon : [...pokemon.results]
       });
-    });
+  });
     
     if (event.target.id === "increment" && value >= 0 ) {
-      this.setState((value) => ({
-        value: value.value + 20}));
+      this.setState((state) => ({
+        value: state.value + 20}));
     } else if (event.target.id === "decrement" && value >= 20) {
-      this.setState((value) => ({
-        value: value.value - 20}));
+      this.setState((state) => ({
+        value: state.value - 20}));
     }
   }
 
