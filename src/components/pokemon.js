@@ -59,6 +59,7 @@ async componentDidMount () {
   const imageUrl = pokemon.data.sprites.front_default;
 
   let {hp, attack, defense, speed, specialAttack, specialDefense, description} = ''; 
+  console.log("this is description", description);
 
   pokemon.data.stats.map(stat => {
     // eslint-disable-next-line default-case
@@ -94,16 +95,18 @@ async componentDidMount () {
   });
   
   await axios.get(species).then(results => {
+    let description = '';
     results.data.flavor_text_entries.some(flavor => {
       if (flavor.language === 'en') { 
+        console.log(flavor.flavor_text);
         description = flavor.flavor_text;
-        return;
+        return
       }
     });
+    this.setState({description});
   });
 
   this.setState({
-    description,
     imageUrl,
     pokemonIndex,
     name,
@@ -123,20 +126,18 @@ async componentDidMount () {
 }
   
   render () {
-    let hp = this.state.stats.hp;
-    console.log(hp);
     return (
       <div className='col'>
         <div className='card'>
           <div className='card-header'>
             <div className='row'>
-              <div className='col-5'>
-                <h5> {this.state.pokemonIndex} </h5>
-              </div>
               <div>
+                <h5 className='col-4' style={{float: 'left'}}> {this.state.pokemonIndex} </h5>
+              </div>
+              <div className='col-9'>
                 {this.state.types.map(type => 
-                  <span key={{type}} className='badge badge-pill mr-1' 
-                  style={{backgroundColor: `#${type_colours[type]}`}}> 
+                  <span key={{type}} className='badge badge-pill'
+                  style={{backgroundColor: `#${type_colours[type]}`, float:'right'}}> 
                   {type} 
                   </span>
                 )}
@@ -150,7 +151,7 @@ async componentDidMount () {
                 className='card-img-top rounded mx-auto mt-2' 
                 alt={this.state.name}
                 />
-             </div>  
+             </div>
              <div className='col-md-9'>
                 <h4 className='mx-auto'> {this.state.name} </h4>
                 <div className='row align-items-center'>
@@ -159,30 +160,75 @@ async componentDidMount () {
                   </div>
                   <div className='col-12 col-md-9'>
                     <div className='progress'>
-                      <div className='progress-bar' role='progressBar' 
-                        style={{width:`${this.state.stats.hp}%`}} 
-                        aria-valuenow='0'
-                        aria-valuemin='25'                       
-                        aria-valuemax='100'>
-                        <small>{this.state.stats.hp}</small>
-                      </div>
-                    </div>
-                    <div className='progress'>
-                      <div className='progress-bar' role='progressBar' 
-                        style={{width:`${this.state.stats.attack}%`}} 
-                        aria-valuenow='0'
-                        aria-valuemin='25'                       
-                        aria-valuemax='100'>
-                        <small>{this.state.stats.attack}</small>
-                    </div>
+                    <div className='progress-bar' role='progressBar' 
+                      style={{width:`${this.state.stats.hp}%`}} 
+                      aria-valuenow='0'
+                      aria-valuemin='25'                       
+                      aria-valuemax='100' >
+                      <small>{this.state.stats.hp}</small>
+                   </div>
                   </div>
+                 </div>
+                </div>
+                <div className='row align-items-center'>
+                  <div className='col-12 col-md-3'>
+                    Attack
+                  </div>
+                  <div className='col-12 col-md-9'>
+                    <div className='progress'>
+                    <div className='progress-bar' role='progressBar' 
+                      style={{width:`${this.state.stats.attack}%`}} 
+                      aria-valuenow='0'
+                      aria-valuemin='25'                       
+                      aria-valuemax='100' >
+                      <small>{this.state.stats.attack}</small>
+                   </div>
+                  </div>
+                 </div>
+                </div>
+                <div className='row align-items-center'>
+                  <div className='col-12 col-md-3'>
+                    Defense
+                  </div>
+                  <div className='col-12 col-md-9'>
+                    <div className='progress'>
+                    <div className='progress-bar' role='progressBar' 
+                      style={{width:`${this.state.stats.defense}%`}} 
+                      aria-valuenow='0'
+                      aria-valuemin='25'                       
+                      aria-valuemax='100' >
+                      <small>{this.state.stats.defense}</small>
+                   </div>
+                  </div>
+                 </div>
+                </div>
+                <div className='row align-items-center'>
+                  <div className='col-12 col-md-3'>
+                    Speed
+                  </div>
+                  <div className='col-12 col-md-9'>
+                    <div className='progress'>
+                    <div className='progress-bar' role='progressBar' 
+                      style={{width:`${this.state.stats.speed}%`}} 
+                      aria-valuenow='0'
+                      aria-valuemin='25'                       
+                      aria-valuemax='100' >
+                      <small>{this.state.stats.speed}</small>
+                   </div>
+                  </div>
+                 </div>
+                </div>
+                <div className='row mt-1'>
+                  <div className='col'>
+                  <p> {this.state.height} </p>
                   </div>
                 </div>
-             </div>   
+               </div>   
+              </div>
+             </div>
+             <hr/>
             </div>
-          </div>
-        </div>
-      </div>
+           </div>
     );
   }
 }

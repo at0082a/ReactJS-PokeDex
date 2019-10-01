@@ -52,7 +52,7 @@ export default class Dashboard extends React.Component {
   render () {
     let pokemon = this.state.pokemon;
     return (
-      <div>
+      <div className='col'>
         <div className="row">
             {pokemon.map(poke => <PokeCard key={poke.name} name={poke.name} url={poke.url}/>)};
         </div>
