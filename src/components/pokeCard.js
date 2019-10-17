@@ -29,14 +29,14 @@ export default class PokeCard extends React.Component {
           <div className='card'>
             <h5> {this.state.pokemonIndex} </h5>
             <img className="pokePic" 
-            src={this.state.imageUrl} 
-            onLoad={() => this.setState({imageLoading: false})}
-            alt="new" 
+              src={this.state.imageUrl} 
+              onLoad={() => this.setState({imageLoading: false})}
+              alt="new" 
             />
             <div className='card-header'>
-            <Link to={`/pokemon/${this.state.pokemonIndex}`}>
-              <h3> {this.state.name} </h3>
-            </Link>
+              <Link to={`/pokemon/${this.state.pokemonIndex}`}>
+                <h3> {this.state.name} </h3>
+              </Link>
             </div>
           </div>
         
